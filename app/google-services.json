@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "130401944184",
+    "project_id": "turqtodo",
+    "storage_bucket": "turqtodo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130401944184:android:a62a886af031248749238d",
+        "android_client_info": {
+          "package_name": "com.example.turqtodo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130401944184-8psjlqnenvd5c761ihvtg6dq4g8kueco.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkzW0vDEW0W3cO89Ld-cYRyTItuv6tGow"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130401944184-8psjlqnenvd5c761ihvtg6dq4g8kueco.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
