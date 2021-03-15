@@ -9,3 +9,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 }
+
+class todoList {
+    //needs list-of-tasks:listOf(task)
+    //needs title:string
+    //needs progress-bar:booleanTracker
+    //needs add-task:func
+    //needs del-task:func
+}
+
+class task {
+    //needs name:string
+    //needs ifCompleted:boolean(checkbox)
+}
