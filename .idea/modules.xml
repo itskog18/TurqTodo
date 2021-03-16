@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TurqTodo.iml" filepath="$PROJECT_DIR$/.idea/modules/TurqTodo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/TurqTodo.iml" filepath="$PROJECT_DIR$/.idea/TurqTodo.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TurqTodo.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TurqTodo.app.iml" />
     </modules>
   </component>
