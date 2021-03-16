@@ -1,0 +1,13 @@
+necessary:
+	add fragment for sub_list
+	fill out task class
+	fill out todoList(sub_list) class
+	firebase syncing
+
+useful:
+	color theme (turquoise)
+
+
+niceToHave:
+	dark/light theme
+	other color options
