@@ -1,12 +1,7 @@
-package com.example.turqtodo.lists.list
+package com.example.turqtodo.lists.data
 
-class task {
-    private var placeholderTaskName = "placeholderTaskName"
-    val taskName:String = ""
-    val isCompleted: Int = 0
-    val taskId: Int = 0
+class Task {
+    var taskName: String? = null
+    var taskId: String? = null
+    val isCompleted: Boolean = false
 }
-
-/*
-data class Task(val taskName:String, val isCompleted:Int, val taskId:Int)
-*/

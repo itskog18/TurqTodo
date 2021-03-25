@@ -5,4 +5,6 @@
 
     <!-- Fragment values -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text">text</string>
+    <string name="removelist">removeList</string>
 </resources>

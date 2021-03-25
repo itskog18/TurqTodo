@@ -25,15 +25,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd877a0d-8774-4bad-abe2-aea801d5ccdd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/turqtodo/lists/TaskAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_2_1_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/app/TurqTodo.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/TurqTodo.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/google-services.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/turqtodo/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/turqtodo/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/turqtodo/listDetails.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/turqtodo/listDetails.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/turqtodo/lists/TaskCollectionAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/turqtodo/lists/TodoListCollectionAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/turqtodo/lists/TodoListCollectionAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/turqtodo/lists/data/Task.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/turqtodo/lists/data/TodoList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/turqtodo/lists/data/TodoList.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +60,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="resourceFile" />
         <option value="Kotlin Class" />
         <option value="layoutResourceFile" />
       </list>
@@ -66,16 +77,20 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../bookCollection" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Zakk\ikt205\TurqTodo\app" />
+      <recent name="C:\Users\Zakk\ikt205\TurqTodo\app\src\main\java\com\example\turqtodo\lists" />
+    </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
       <recent name="com.example.turqtodo.lists" />
       <recent name="com.example.turqtodo.lists.data" />
       <recent name="com.example.turqtodo.data" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Zakk\ikt205\TurqTodo\app\src\main\java\com\example\turqtodo\lists" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Zakk\ikt205\TurqTodo\app" />
     </key>
   </component>
   <component name="RunManager">
@@ -86,7 +101,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="TurqTodo.app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -170,10 +185,11 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="271" y="259" key="#com.intellij.ide.util.MemberChooser" timestamp="1616511014205">
+    <state x="334" y="273" key="#com.intellij.ide.util.MemberChooser" timestamp="1616675946525">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="271" y="259" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1616511014205" />
+    <state x="334" y="273" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1616675946525" />
+    <state x="334" y="273" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1616605148101" />
     <state x="120" y="468" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1616510948000">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -182,14 +198,35 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="259" y="335" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1616511203075" />
-    <state x="60" y="298" key="AndroidCreateResourceFileDialog" timestamp="1616519544507">
+    <state x="307" y="309" key="AndroidCreateResourceFileDialog" timestamp="1616671869501">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="60" y="298" key="AndroidCreateResourceFileDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1616519544507" />
+    <state x="307" y="309" key="AndroidCreateResourceFileDialog/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1616671869501" />
+    <state x="60" y="298" key="AndroidCreateResourceFileDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1616596516464" />
+    <state x="804" y="330" key="AndroidCreateXmlResourceDialog" timestamp="1616668985587">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="804" y="330" key="AndroidCreateXmlResourceDialog/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1616668985587" />
     <state x="260" y="295" key="FileChooserDialogImpl" timestamp="1616508313363">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="260" y="295" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1616508313363" />
+    <state width="1877" height="295" key="GridCell.Tab.0.bottom" timestamp="1616683229433">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="295" key="GridCell.Tab.0.bottom/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1616683229433" />
+    <state width="1877" height="295" key="GridCell.Tab.0.center" timestamp="1616683229432">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="295" key="GridCell.Tab.0.center/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1616683229432" />
+    <state width="1877" height="295" key="GridCell.Tab.0.left" timestamp="1616683229432">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="295" key="GridCell.Tab.0.left/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1616683229432" />
+    <state width="1877" height="295" key="GridCell.Tab.0.right" timestamp="1616683229432">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1877" height="295" key="GridCell.Tab.0.right/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1616683229432" />
     <state x="323" y="315" key="refactoring.ChangeSignatureDialog" timestamp="1616519580469">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

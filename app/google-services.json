@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "130401944184",
+    "firebase_url": "https://turqtodo-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "turqtodo",
     "storage_bucket": "turqtodo.appspot.com"
   },
