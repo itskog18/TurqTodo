@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:background="@drawable/custom" >
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:soundEffectsEnabled="true" />
+
+    <TextView
+        android:id="@+id/task_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_toEndOf="@+id/checkBox"
+        android:text="@string/text"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="normal"
+        tools:ignore="RelativeOverlap" />
+
+    <ImageButton
+        android:id="@+id/removeTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/list_textView"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/white"
+        android:gravity="end"
+        android:src="@android:drawable/btn_dialog"
+        android:contentDescription="@string/removelist" />
+
+</RelativeLayout>
