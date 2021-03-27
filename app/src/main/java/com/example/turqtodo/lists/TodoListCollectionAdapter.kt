@@ -60,14 +60,15 @@ class TodoListCollectionAdapter(context: Context, todoList:MutableList<TodoList>
             viewHolder = view.tag as ListViewHolder
         }
         viewHolder.textLabel.text = listName
-
-        // add viewHolder.isDeleted from Deeksha around 27:40
+        viewHolder.isDeleted.setOnClickListener {
+            updateAndDelete.onListDelete(uniqueID)
+        }
 
         return view
     }
 
     private class ListViewHolder(row: View?) {
-        val textLabel:TextView=row!!.findViewById(R.id.list_textView) as TextView
+        val textLabel: TextView=row!!.findViewById(R.id.list_textView) as TextView
         val isDeleted: ImageButton = row!!.findViewById(R.id.removeList) as ImageButton
     }
 
