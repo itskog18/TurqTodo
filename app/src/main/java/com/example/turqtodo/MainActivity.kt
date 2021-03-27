@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), UpdateAndDelete {
 
         val addNewList = findViewById<View>(R.id.floatingActionButton) as FloatingActionButton
 
-        listViewItem = findViewById(R.id.allListView) as ListView
+        listViewItem = findViewById(R.id.listsOverview_listView) as ListView
 
         database = FirebaseDatabase.getInstance().reference
         addNewList.setOnClickListener{view ->
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), UpdateAndDelete {
                 val newListData = TodoList.createList()
                 newListData.listName = newListName.text.toString()
 
-                val listDataForDb = database.child("list").push()
+                val listDataForDb = database.child("listsOverview").push()
                 newListData.listId = listDataForDb.key
                 listDataForDb.setValue(newListData)
 
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity(), UpdateAndDelete {
         toDoList = mutableListOf<TodoList>()
         listAdapter = TodoListCollectionAdapter(this, toDoList!!)
         listViewItem!!.adapter=listAdapter
-        database.addValueEventListener(object : ValueEventListener{
+        database.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(applicationContext,"There was no list added", Toast.LENGTH_SHORT).show()
             }
@@ -106,10 +106,12 @@ class MainActivity : AppCompatActivity(), UpdateAndDelete {
             while(listsIterator.hasNext()) {
                 val currentList = listsIterator.next()
                 val listItemData = TodoList.createList()
-                val map = currentList.getValue() as HashMap<String, Any>
+                                    // Changed from: .getValue() to just: .value
+                val map = currentList.value as HashMap<String, Any>
 
                 listItemData.listId = currentList.key
-                listItemData.listName = map.get("listName") as String?
+                                        // Changed from: map.get["listName"] to just: map["listName"]
+                listItemData.listName = map["listName"] as String?
                 toDoList!!.add(listItemData)
             }
         }
@@ -121,13 +123,8 @@ class MainActivity : AppCompatActivity(), UpdateAndDelete {
     private fun onTodoListClicked(todoList: TodoList):Unit {
         // show detailed list view, containing that lists tasks
     }
-
-    override fun modifyList(listID: String) {
-        val listReference = database.child("list").child(listID)
-    }
-
     override fun onListDelete(listID: String) {
-        val listReference = database.child("list").child(listID)
+        val listReference = database.child("listsOverview").child(listID)
         listReference.removeValue()
         listAdapter.notifyDataSetChanged()
     }
