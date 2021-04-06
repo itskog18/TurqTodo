@@ -6,7 +6,7 @@ class TodoList {
     val listOfTasks: List<Task> = listOf<Task>()
     var listName: String? = null
     var listId: String? = null
-    private val currentProgress = listOf(Task())
+    var currentProgress: Int = 0
 
     // fix the function under (amountOfTasksCompleted) at a later time
     //val amountOfTasksCompleted = currentProgress.sumBy{it.isCompleted}
@@ -14,7 +14,7 @@ class TodoList {
     //needs add-task:func
     //needs del-task:func
 
-    companion object Factory{
+    companion object Factory {
         fun createList(): TodoList = TodoList()
     }
 }
