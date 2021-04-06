@@ -1,7 +1,6 @@
 package com.example.turqtodo.lists
 
 import android.content.Context
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +9,19 @@ import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import com.example.turqtodo.R
+import com.example.turqtodo.ListProgressAndDelete
+import com.example.turqtodo.TaskUpdateAndDelete
 import com.example.turqtodo.lists.data.Task
 
-class TaskAdapter(context: Context, Task: MutableList<Task>) : BaseAdapter() {
+class TaskAdapter(context: Context, taskList: MutableList<Task>) : BaseAdapter() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private val currentTask = Task
+    private val currentTask = taskList
+    private val updateAndDelete: TaskUpdateAndDelete = context as TaskUpdateAndDelete
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val uniqueID: String = currentTask.get(position).taskId as String
         val taskName = currentTask.get(position).taskName as String
-        val isCompleted: Boolean = currentTask.get(position).isCompleted as Boolean
+        val isCompleted: Boolean = currentTask.get(position).isCompleted
 
         val view: View
         val viewHolder: TaskViewHolder
@@ -35,6 +37,9 @@ class TaskAdapter(context: Context, Task: MutableList<Task>) : BaseAdapter() {
 
         viewHolder.textLabel.text = taskName
         viewHolder.isCompleted.isChecked = isCompleted
+        viewHolder.isDeleted.setOnClickListener {
+            updateAndDelete.onTaskDelete(uniqueID)
+        }
 
         return view
     }

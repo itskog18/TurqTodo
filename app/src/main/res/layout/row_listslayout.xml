@@ -11,11 +11,26 @@
         android:id="@+id/list_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/progressBar"
+        android:layout_centerVertical="true"
+        android:focusable="true"
+        android:clickable="true"
         android:text="@string/text"
         android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="normal"
-        tools:ignore="RelativeOverlap" />
+        android:paddingStart="15dp"
+        tools:ignore="RelativeOverlap,RtlSymmetry" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.ProgressBar"
+        android:indeterminate="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:progress="0" />
 
     <ImageButton
         android:id="@+id/removeList"

@@ -1,9 +1,6 @@
 package com.example.turqtodo
 
-interface UpdateAndDelete {
-
-    fun onListDelete(listID: String)
-
+interface TaskUpdateAndDelete {
     fun modifyTask(taskID: String, isCompleted: Boolean)
     fun onTaskDelete(taskID: String)
 }
