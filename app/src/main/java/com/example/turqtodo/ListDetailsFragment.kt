@@ -1,19 +1,5 @@
 package com.example.turqtodo
 
-import android.content.Context
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ListView
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.turqtodo.lists.TaskAdapter
-import com.example.turqtodo.lists.TodoListAdapter
-import com.example.turqtodo.lists.data.Task
-import com.example.turqtodo.lists.data.TodoList
-
 /*
 class ListDetailsFragment : Fragment() {
 

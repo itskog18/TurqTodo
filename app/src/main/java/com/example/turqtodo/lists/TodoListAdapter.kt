@@ -1,15 +1,10 @@
 package com.example.turqtodo.lists
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageButton
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
+import android.widget.*
 import com.example.turqtodo.*
 import com.example.turqtodo.lists.data.TodoList
 
@@ -45,8 +40,8 @@ class TodoListAdapter(context: Context, todoList: MutableList<TodoList>) : BaseA
     private val progressAndDelete: ListProgressAndDelete = context as ListProgressAndDelete
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val uniqueID: String = currentTodoList.get(position).listId as String
-        val listName = currentTodoList.get(position).listName as String
+        val uniqueID: String = currentTodoList[position].listId as String
+        val listName = currentTodoList[position].listName as String
 
         val view: View
         val viewHolder: ListViewHolder
@@ -66,18 +61,22 @@ class TodoListAdapter(context: Context, todoList: MutableList<TodoList>) : BaseA
         viewHolder.isDeleted.setOnClickListener {
             progressAndDelete.onListDelete(uniqueID)
         }
+        viewHolder.toOpen.setOnClickListener {
+            progressAndDelete.onListOpen(uniqueID)
+        }
 
         return view
     }
 
     private class ListViewHolder(row: View?) {
         val textLabel: TextView=row!!.findViewById(R.id.list_textView) as TextView
-        val currentProgress: ProgressBar = row!!.findViewById(R.id.progressBar) as ProgressBar
+        //val currentProgress: ProgressBar = row!!.findViewById(R.id.progressBar) as ProgressBar
         val isDeleted: ImageButton = row!!.findViewById(R.id.removeList) as ImageButton
+        val toOpen: Button = row!!.findViewById(R.id.openList) as Button
     }
 
     override fun getItem(position: Int): Any {
-        return currentTodoList.get(position)
+        return currentTodoList[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -85,7 +84,7 @@ class TodoListAdapter(context: Context, todoList: MutableList<TodoList>) : BaseA
     }
 
     override fun getCount(): Int {
-        return currentTodoList.size
+        return currentTodoList.count()
     }
 
 }
