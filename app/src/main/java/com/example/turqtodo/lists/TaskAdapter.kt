@@ -9,19 +9,19 @@ import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import com.example.turqtodo.R
-import com.example.turqtodo.ListProgressAndDelete
 import com.example.turqtodo.TaskUpdateAndDelete
-import com.example.turqtodo.lists.data.Task
+import com.example.turqtodo.lists.data.TaskData
+import kotlinx.android.synthetic.main.row_taskslayout.view.*
 
-class TaskAdapter(context: Context, taskList: MutableList<Task>) : BaseAdapter() {
+class TaskAdapter(context: Context, taskDataList: MutableList<TaskData>) : BaseAdapter() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private val currentTask = taskList
+    private val currentTask = taskDataList
     private val updateAndDelete: TaskUpdateAndDelete = context as TaskUpdateAndDelete
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val uniqueID: String = currentTask.get(position).taskId as String
-        val taskName = currentTask.get(position).taskName as String
-        val isCompleted: Boolean = currentTask.get(position).isCompleted
+        val uniqueID: String = currentTask[position].taskId as String
+        val taskName = currentTask[position].taskName as String?
+        val isCompleted: Boolean = currentTask[position].isCompleted
 
         val view: View
         val viewHolder: TaskViewHolder
@@ -36,11 +36,12 @@ class TaskAdapter(context: Context, taskList: MutableList<Task>) : BaseAdapter()
         }
 
         viewHolder.textLabel.text = taskName
-        viewHolder.isCompleted.isChecked = isCompleted
-        viewHolder.isDeleted.setOnClickListener {
-            updateAndDelete.onTaskDelete(uniqueID)
+        viewHolder.isCompleted.setOnClickListener {
+            updateAndDelete.modifyTask(uniqueID, it?.checkBox?.isChecked!!, position)
         }
-
+        viewHolder.isDeleted.setOnClickListener {
+            updateAndDelete.onTaskDelete(uniqueID, position)
+        }
         return view
     }
 
@@ -51,7 +52,7 @@ class TaskAdapter(context: Context, taskList: MutableList<Task>) : BaseAdapter()
     }
 
     override fun getItem(position: Int): Any {
-        return currentTask.get(position)
+        return currentTask[position]
     }
 
     override fun getItemId(position: Int): Long {
