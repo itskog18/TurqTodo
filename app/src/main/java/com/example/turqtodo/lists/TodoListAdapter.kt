@@ -42,6 +42,8 @@ class TodoListAdapter(context: Context, todoList: MutableList<TodoList>) : BaseA
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val uniqueID: String = currentTodoList[position].listId as String
         val listName = currentTodoList[position].listName as String
+        val currentProgress = currentTodoList[position].currentProgress as Int
+        val maxProgress = currentTodoList[position].maxProgress as Int
 
         val view: View
         val viewHolder: ListViewHolder
@@ -62,7 +64,7 @@ class TodoListAdapter(context: Context, todoList: MutableList<TodoList>) : BaseA
             progressAndDelete.onListDelete(uniqueID)
         }
         viewHolder.toOpen.setOnClickListener {
-            progressAndDelete.onListOpen(uniqueID)
+            progressAndDelete.onListOpen(uniqueID, listName, currentProgress, maxProgress)
         }
 
         return view

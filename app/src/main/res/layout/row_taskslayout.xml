@@ -11,7 +11,10 @@
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:soundEffectsEnabled="true" />
+        android:soundEffectsEnabled="true"
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@android:color/background_dark"
+        tools:targetApi="p" />
 
     <TextView
         android:id="@+id/task_textView"
@@ -29,7 +32,7 @@
         android:id="@+id/removeTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/list_textView"
+        android:layout_alignBottom="@+id/task_textView"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:background="@android:color/white"

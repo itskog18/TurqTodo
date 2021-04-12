@@ -34,14 +34,13 @@ class MainActivity : AppCompatActivity(), ListProgressAndDelete {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         val addNewList = findViewById<View>(R.id.addNewListButton) as FloatingActionButton
 
         listViewItem = findViewById<View>(R.id.listsOverview_listView) as ListView
-        //binding.listsOverviewListView.layoutManager = LinearLayoutManager(this)
-        //binding.listsOverviewListView.adapter as TodoListAdapter(todoList<TodoList>(), this::onTodoListClicked)
-
         database = FirebaseDatabase.getInstance().reference
+        listAdapter = TodoListAdapter(this, toDoList)
+        listViewItem!!.adapter = listAdapter
+
         addNewList.setOnClickListener {view ->
             val newListPopup = AlertDialog.Builder(this)
             val newListName = EditText(this)
@@ -62,8 +61,6 @@ class MainActivity : AppCompatActivity(), ListProgressAndDelete {
             newListPopup.show()
         }
 
-        listAdapter = TodoListAdapter(this, toDoList)
-        listViewItem!!.adapter = listAdapter
         database.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(applicationContext,"There was no list added", Toast.LENGTH_SHORT).show()
@@ -71,6 +68,7 @@ class MainActivity : AppCompatActivity(), ListProgressAndDelete {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 toDoList.clear()
+                // maybe add the listProgressBar updater here.
                 Toast.makeText(applicationContext, "ListData was changed!", Toast.LENGTH_SHORT).show()
                 addListToOverview(snapshot)
             }
@@ -109,6 +107,13 @@ class MainActivity : AppCompatActivity(), ListProgressAndDelete {
                 listItemData.listId = currentList.key
                                         // Changed from: map.get["listName"] to just: map["listName"]
                 listItemData.listName = map["listName"] as String?
+
+
+                // find a way to get the listProgressBar to work, either here or onDataChange()
+                //listItemData.currentProgress =
+
+                //listItemData.maxProgress = currentList.childrenCount.toInt()
+
                 toDoList.add(listItemData)
             }
         }
@@ -134,25 +139,12 @@ class MainActivity : AppCompatActivity(), ListProgressAndDelete {
         Toast.makeText(applicationContext,"List deleted!", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onListProgress(listID: String, currentProgress: Int) {
-
-        // alt dette er feil,
-            // add så den teller gjennom en liste probs via en get() eller noe for å få tak i lista med bare ID,
-            // eller send inn lista over tasks,
-            // men det hadde sikkert skapt trøbbel med at du da ikke kan sende currentProgress tilbake til riktig listeID like lett.
-        // Men denne metoden burde funke for akkurat dette.
-
-        val progressMax = listAdapter.count
-        //progressBar.max = progressMax
-
-        val listToCount = listOf(2, 8, 5, 7, 9, 6, 10)
-        val progress: (Int) -> Boolean = {it % 2 == 0}
-        val result = listToCount.count(progress)
-    }
-
-    override fun onListOpen(listID: String) {
+    override fun onListOpen(listID: String, listName: String, currentProgress: Int, maxProgress: Int) {
         val intent = Intent(this, ListDetailsActivity::class.java)
         intent.putExtra("listClickedID", listID)
+        intent.putExtra("listClickedName", listName)
+        intent.putExtra("listClickedCurrentProgress", currentProgress)
+        intent.putExtra("listClickedMaxProgress", maxProgress)
         startActivity(intent)
     }
 

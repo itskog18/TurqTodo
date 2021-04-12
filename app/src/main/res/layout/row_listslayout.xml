@@ -7,31 +7,44 @@
     android:padding="10dp"
     android:background="@drawable/custom"
     android:focusable="true"
-    android:clickable="true" >
-
-    <TextView
-        android:id="@+id/list_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/progressBar"
-        android:layout_centerVertical="true"
-        android:text="@string/text"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="normal"
-        android:paddingStart="15dp"
-        tools:ignore="RelativeOverlap,RtlSymmetry" />
+    android:clickable="true"
+    tools:ignore="ExtraText">
 
     <Button
         android:id="@+id/openList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/list_textView"
-        android:layout_centerInParent="true"
-        android:layout_toStartOf="@id/removeList"
+        android:layout_centerInParent="false"
+        android:layout_centerVertical="true"
         android:layout_gravity="center"
         android:text="@string/open"
+        android:textAlignment="center"
         tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:id="@+id/list_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/openList"
+        android:layout_toStartOf="@+id/removeList"
+        android:text="@string/text"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="normal"
+        android:paddingStart="15dp"
+        tools:ignore="RtlSymmetry" />
+
+    <ProgressBar
+        android:id="@+id/listProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="3dp"
+        android:layout_below="@+id/removeList"
+        />
 
     <ImageButton
         android:id="@+id/removeList"
