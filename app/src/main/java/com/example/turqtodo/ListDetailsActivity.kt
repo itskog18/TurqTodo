@@ -1,25 +1,18 @@
 package com.example.turqtodo
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import com.example.turqtodo.databinding.ActivityListDetailsBinding
-import com.example.turqtodo.databinding.ActivityMainBinding
 import com.example.turqtodo.lists.TaskAdapter
 import com.example.turqtodo.lists.data.TaskData
 import com.google.android.gms.tasks.Task
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.row_listslayout.*
-import kotlinx.coroutines.NonCancellable.isCompleted
+import kotlinx.android.synthetic.main.activity_list_details.*
 
 class TaskHolder {
     companion object {
@@ -32,26 +25,30 @@ class ListDetailsActivity : AppCompatActivity(), TaskUpdateAndDelete {
     private lateinit var binding: ActivityListDetailsBinding
 
     private lateinit var database: DatabaseReference
-    val task: MutableList<TaskData> = mutableListOf<TaskData>()
+    private val task: MutableList<TaskData> = mutableListOf<TaskData>()
     lateinit var taskAdapter: TaskAdapter
     private var taskViewItem: ListView? = null
     var openListID:String? = ""
     var taskPath:String = ""
-    val shortPath:String = "listOfTasks"
+    var listName:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        openListID = intent.getStringExtra("listClickedID")
-        taskPath = "listsOverview/$openListID/listOfTasks"
-
-        Toast.makeText(applicationContext, "hi this is $openListID, now open", Toast.LENGTH_LONG).show()
-
+        val listTitle = findViewById<View>(R.id.listTitle) as TextView
         val addNewTask = findViewById<View>(R.id.addNewTaskButton) as FloatingActionButton
 
         taskViewItem = findViewById<ListView>(R.id.tasksOverview_taskView)
+
+        openListID = intent.getStringExtra("listClickedID")
+        Toast.makeText(applicationContext, "ID: $openListID, now open", Toast.LENGTH_LONG).show()
+        taskPath = "listsOverview/$openListID/listOfTasks"
+
+        listName = intent.getStringExtra("listClickedName").toString()
+        Toast.makeText(applicationContext, "MY NAME IS $listName", Toast.LENGTH_LONG).show()
+        listTitle.text = listName
 
         database = FirebaseDatabase.getInstance().reference
         addNewTask.setOnClickListener { view ->
@@ -68,12 +65,12 @@ class ListDetailsActivity : AppCompatActivity(), TaskUpdateAndDelete {
                 newTaskData.taskId = taskDataForDb.key
                 task.add(newTaskData)
                 taskDataForDb.setValue(newTaskData)
-                taskAdapter.notifyDataSetChanged()
+
                 dialog.dismiss()
+                Toast.makeText(this,"Task saved!", Toast.LENGTH_SHORT).show()
             }
             newTaskPopup.show()
             taskAdapter.notifyDataSetChanged()
-
         }
 
         taskAdapter = TaskAdapter(this, task)
@@ -83,11 +80,6 @@ class ListDetailsActivity : AppCompatActivity(), TaskUpdateAndDelete {
                 taskAdapter.notifyDataSetChanged()
             }
         }
-
-        val progressBar: ProgressBar = findViewById(R.id.progressBar)
-        progressBar.max = task.count()
-        progressBar.progress = getAllCheckedItems().count()
-
 
         //val dbReference = FirebaseDatabase.getInstance().getReference(taskPath)
         //val taskReference = dbReference.child(openListID.toString()).child("listOfTasks")
@@ -107,6 +99,7 @@ class ListDetailsActivity : AppCompatActivity(), TaskUpdateAndDelete {
          */
 
     }
+
 /*
         private fun addTaskToOverview(snapshot: DataSnapshot) {
             val tasks = snapshot.children.iterator()
@@ -133,7 +126,9 @@ class ListDetailsActivity : AppCompatActivity(), TaskUpdateAndDelete {
         private fun addTaskToOverview() : Task<DataSnapshot> {
             return database.child(taskPath).get().addOnSuccessListener { it ->
                 if (it.exists()) {
-                    task.clear()
+                    //val taskStatus = database.child(taskPath).child("isCompleted")
+                        task.clear()
+                    //database.child(taskPath).child("isCompleted").setValue(taskStatus)
                 }
 
                 it.children.mapNotNullTo(task) {
@@ -146,6 +141,8 @@ class ListDetailsActivity : AppCompatActivity(), TaskUpdateAndDelete {
             val taskReference = database.child(taskPath).child(taskID)
             taskReference.child("isCompleted").setValue(isCompleted)
             task[position].isCompleted = isCompleted
+            taskProgressBar.max = task.count()
+            taskProgressBar.progress = getProgressAmount().count()
             taskAdapter.notifyDataSetChanged()
         }
 
@@ -154,9 +151,10 @@ class ListDetailsActivity : AppCompatActivity(), TaskUpdateAndDelete {
             taskReference.removeValue()
             task.removeAt(position)
             taskAdapter.notifyDataSetChanged()
+            Toast.makeText(applicationContext,"Task deleted!", Toast.LENGTH_SHORT).show()
         }
 
-    fun getAllCheckedItems(): List<TaskData> {
+    fun getProgressAmount(): List<TaskData> {
         return task.filter {
             it.isCompleted
         }
