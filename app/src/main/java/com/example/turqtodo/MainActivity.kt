@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity(), ListProgressAndDelete {
             override fun onDataChange(snapshot: DataSnapshot) {
                 toDoList.clear()
                 // maybe add the listProgressBar updater here.
+
                 Toast.makeText(applicationContext, "ListData was changed!", Toast.LENGTH_SHORT).show()
                 addListToOverview(snapshot)
             }
@@ -108,6 +109,7 @@ class MainActivity : AppCompatActivity(), ListProgressAndDelete {
                                         // Changed from: map.get["listName"] to just: map["listName"]
                 listItemData.listName = map["listName"] as String?
 
+                //listProgressBar.max = database.child("listsOverview/${currentList.key}/")
 
                 // find a way to get the listProgressBar to work, either here or onDataChange()
                 //listItemData.currentProgress =

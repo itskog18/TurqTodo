@@ -13,6 +13,8 @@ import com.google.android.gms.tasks.Task
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_list_details.*
+import kotlinx.android.synthetic.main.row_taskslayout.*
+import kotlinx.coroutines.NonCancellable.isCompleted
 
 class TaskHolder {
     companion object {
@@ -31,6 +33,8 @@ class ListDetailsActivity : AppCompatActivity(), TaskUpdateAndDelete {
     var openListID:String? = ""
     var taskPath:String = ""
     var listName:String = ""
+    var maxProgressPath:String = ""
+    var currentProgressPath:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +49,8 @@ class ListDetailsActivity : AppCompatActivity(), TaskUpdateAndDelete {
         openListID = intent.getStringExtra("listClickedID")
         Toast.makeText(applicationContext, "ID: $openListID, now open", Toast.LENGTH_LONG).show()
         taskPath = "listsOverview/$openListID/listOfTasks"
+        maxProgressPath = "listsOverview/$openListID/maxProgress"
+        currentProgressPath = "listsOverview/$openListID/currentProgress"
 
         listName = intent.getStringExtra("listClickedName").toString()
         Toast.makeText(applicationContext, "MY NAME IS $listName", Toast.LENGTH_LONG).show()
@@ -127,13 +133,26 @@ class ListDetailsActivity : AppCompatActivity(), TaskUpdateAndDelete {
             return database.child(taskPath).get().addOnSuccessListener { it ->
                 if (it.exists()) {
                     //val taskStatus = database.child(taskPath).child("isCompleted")
-                        task.clear()
+                    task.clear()
                     //database.child(taskPath).child("isCompleted").setValue(taskStatus)
                 }
+
+                /*
+                val checkBox:CheckBox? = findViewById(R.id.checkBox)
+                if(checkBox?.isChecked) {
+                    checkBox?.isChecked = true
+                }
+                */
 
                 it.children.mapNotNullTo(task) {
                     it.getValue<TaskData>(TaskData::class.java)
                 }
+
+
+                val checkBox:CheckBox? = findViewById(R.id.checkBox)
+                val taskStatus: Task<DataSnapshot> = database.child(taskPath).child("$taskId/isCompleted").get()
+                checkBox?.isChecked = taskStatus.isComplete
+                 
             }
         }
 
@@ -142,8 +161,12 @@ class ListDetailsActivity : AppCompatActivity(), TaskUpdateAndDelete {
             taskReference.child("isCompleted").setValue(isCompleted)
             task[position].isCompleted = isCompleted
             taskProgressBar.max = task.count()
+            database.child(maxProgressPath).setValue(taskProgressBar.max)
             taskProgressBar.progress = getProgressAmount().count()
+            database.child(currentProgressPath).setValue(taskProgressBar.progress)
+
             taskAdapter.notifyDataSetChanged()
+            Toast.makeText(applicationContext, "Task changed!", Toast.LENGTH_SHORT).show()
         }
 
         override fun onTaskDelete(taskID: String, position: Int) {
@@ -154,10 +177,10 @@ class ListDetailsActivity : AppCompatActivity(), TaskUpdateAndDelete {
             Toast.makeText(applicationContext,"Task deleted!", Toast.LENGTH_SHORT).show()
         }
 
-    fun getProgressAmount(): List<TaskData> {
-        return task.filter {
-            it.isCompleted
+        private fun getProgressAmount(): List<TaskData> {
+            return task.filter {
+                it.isCompleted
+            }
         }
-    }
 
 }
