@@ -6,3 +6,4 @@ The button for deleting lists and tasks is still on the right, since it should b
 
 
 Link to APK download:
+https://appdistribution.firebase.dev/i/84f8e82397483d5d
