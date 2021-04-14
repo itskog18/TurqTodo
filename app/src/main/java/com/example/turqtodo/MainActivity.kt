@@ -11,14 +11,6 @@ import com.example.turqtodo.lists.TodoListAdapter
 import com.example.turqtodo.databinding.ActivityMainBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.row_listslayout.*
-
-
-class ListHolder {
-    companion object {
-        var ClickedList:TodoList? = null
-    }
-}
 
 class MainActivity : AppCompatActivity(), ListProgressAndDelete {
 
@@ -52,7 +44,7 @@ class MainActivity : AppCompatActivity(), ListProgressAndDelete {
                 newListData.listName = newListName.text.toString()
 
                 val listDataForDb = database.child("listsOverview").push()
-                newListData.listId = listDataForDb.key
+                newListData.listId = listDataForDb.key.toString()
                 listDataForDb.setValue(newListData)
 
                 dialog.dismiss()
@@ -60,35 +52,6 @@ class MainActivity : AppCompatActivity(), ListProgressAndDelete {
             }
             newListPopup.show()
         }
-
-        database.addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(applicationContext,"There was no list added", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                toDoList.clear()
-                // maybe add the listProgressBar updater here.
-
-                Toast.makeText(applicationContext, "ListData was changed!", Toast.LENGTH_SHORT).show()
-                addListToOverview(snapshot)
-            }
-
-        })
-
-        /*
-        listViewItem!!.setOnItemClickListener {
-            parent,
-            view,
-            position,
-            id ->
-            val selectedList = parent.getItemAtPosition(position) as String
-            val intent = Intent(this, ListDetailsActivity::class.java)
-            Toast.makeText(applicationContext,"List clicked!", Toast.LENGTH_SHORT).show()
-            startActivity(intent)
-            //ListHolder.ClickedList?.let { onTodoListClicked(todoList = it) }
-        }
-         */
 
     }
 
@@ -102,37 +65,18 @@ class MainActivity : AppCompatActivity(), ListProgressAndDelete {
             while(listsIterator.hasNext()) {
                 val currentList = listsIterator.next()
                 val listItemData = TodoList.createList()
-                                    // Changed from: .getValue() to just: .value
                 val map = currentList.value as HashMap<String, Any>
 
-                listItemData.listId = currentList.key
-                                        // Changed from: map.get["listName"] to just: map["listName"]
-                listItemData.listName = map["listName"] as String?
-
-                //listProgressBar.max = database.child("listsOverview/${currentList.key}/")
-
-                // find a way to get the listProgressBar to work, either here or onDataChange()
-                //listItemData.currentProgress =
-
-                //listItemData.maxProgress = currentList.childrenCount.toInt()
+                listItemData.listId = currentList.key.toString()
+                listItemData.listName = map["listName"] as String
+                listItemData.maxProgress = map["maxProgress"].toString().toInt()
+                listItemData.currentProgress = map["currentProgress"].toString().toInt()
 
                 toDoList.add(listItemData)
             }
         }
         listAdapter.notifyDataSetChanged()
     }
-
-    /*
-    fun onTodoListClicked(todoList: TodoList):Unit {
-        // show detailed list view, containing that lists tasks
-        ListHolder.ClickedList = todoList
-        val clickedListID = todoList.listId
-        Toast.makeText(applicationContext, "hi this is a click", Toast.LENGTH_LONG).show()
-        val intent = Intent(this, ListDetailsActivity::class.java)
-        intent.putExtra("listClickedID", clickedListID)
-        startActivity(intent)
-    }
-     */
 
     override fun onListDelete(listID: String) {
         val listReference = database.child("listsOverview").child(listID)
@@ -141,13 +85,34 @@ class MainActivity : AppCompatActivity(), ListProgressAndDelete {
         Toast.makeText(applicationContext,"List deleted!", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onListOpen(listID: String, listName: String, currentProgress: Int, maxProgress: Int) {
+    override fun onListOpen(listID: String, listName: String, maxProgress: Int, currentProgress: Int) {
         val intent = Intent(this, ListDetailsActivity::class.java)
         intent.putExtra("listClickedID", listID)
         intent.putExtra("listClickedName", listName)
-        intent.putExtra("listClickedCurrentProgress", currentProgress)
         intent.putExtra("listClickedMaxProgress", maxProgress)
+        intent.putExtra("listClickedCurrentProgress", currentProgress)
         startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        listViewItem = findViewById<View>(R.id.listsOverview_listView) as ListView
+        database = FirebaseDatabase.getInstance().reference
+        listAdapter = TodoListAdapter(this, toDoList)
+        listViewItem!!.adapter = listAdapter
+
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(applicationContext,"There was no list added", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                toDoList.clear()
+                addListToOverview(snapshot)
+            }
+
+        })
     }
 
 }

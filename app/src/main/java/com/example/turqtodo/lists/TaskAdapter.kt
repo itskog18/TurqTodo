@@ -19,9 +19,6 @@ class TaskAdapter(context: Context, taskDataList: MutableList<TaskData>) : BaseA
     private val updateAndDelete: TaskUpdateAndDelete = context as TaskUpdateAndDelete
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val uniqueID: String = currentTask[position].taskId as String
-        val taskName = currentTask[position].taskName as String?
-        val isCompleted: Boolean = currentTask[position].isCompleted
 
         val view: View
         val viewHolder: TaskViewHolder
@@ -35,8 +32,13 @@ class TaskAdapter(context: Context, taskDataList: MutableList<TaskData>) : BaseA
             viewHolder = view.tag as TaskViewHolder
         }
 
+        val uniqueID: String = currentTask[position].taskId
+        val taskName: String? = currentTask[position].taskName
+        val isCompleted: Boolean = currentTask.elementAt(position).completed
+
         viewHolder.textLabel.text = taskName
-        viewHolder.isCompleted.setOnClickListener {
+        viewHolder.checkBox.isChecked = isCompleted
+        viewHolder.checkBox.setOnClickListener {
             updateAndDelete.modifyTask(uniqueID, it?.checkBox?.isChecked!!, position)
         }
         viewHolder.isDeleted.setOnClickListener {
@@ -47,8 +49,9 @@ class TaskAdapter(context: Context, taskDataList: MutableList<TaskData>) : BaseA
 
     private class TaskViewHolder(row: View?) {
         val textLabel: TextView = row!!.findViewById(R.id.task_textView) as TextView
-        val isCompleted: CheckBox = row!!.findViewById(R.id.checkBox) as CheckBox
+        var checkBox = row!!.findViewById(R.id.checkBox) as CheckBox
         val isDeleted: ImageButton = row!!.findViewById(R.id.removeTask) as ImageButton
+
     }
 
     override fun getItem(position: Int): Any {
