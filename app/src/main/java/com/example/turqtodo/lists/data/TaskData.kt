@@ -1,10 +1,11 @@
 package com.example.turqtodo.lists.data
 
-class TaskData {
-    var taskName: String? = null
-    var taskId: String? = null
-    var isCompleted: Boolean = false
-
+data class TaskData (
+    var taskName: String?,
+    var taskId: String,
+    var completed: Boolean
+) {
+    constructor(): this("","",false)
     companion object Factory {
         fun createTask(): TaskData = TaskData()
     }
