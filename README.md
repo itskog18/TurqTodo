@@ -8,3 +8,6 @@ More color themes were planned, but implementation of core features took priorit
 
 Link to APK download:
 https://appdistribution.firebase.dev/i/84f8e82397483d5d
+
+Link to GIT Repo:
+https://github.com/itskog18/TurqTodo
